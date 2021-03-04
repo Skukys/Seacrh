@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\SpecialistResource;
 use App\Models\Specialist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,10 +17,15 @@ class SpecialistsController extends Controller
             'date2' => 'required|date|after:date1'
         ]);
 
-        if ($validation->fails())
-            return response($validation->errors(), 424);
+        if ($validation->fails()) return response($validation->errors(), 422);
 
-        $specialists = Specialist::where('specialization', 'like', '%' . $request->specialization . '%')->get();
+        $date1 = $request->date1;
+        $date2 = $request->date2;
+
+        $specialists = Specialist::where('specialization', 'like', '%' . $request->specialization . '%')
+            ->whereDate('available_from','>', $request->date1)
+            ->where('available_to', '>', $request->date2)
+            ->get();
 
         $response = [];
         if (!empty($request->tags)) {

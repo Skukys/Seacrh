@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Specialist search</title>
+
+    <base href="./">
+
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/all.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+<div id="app">
+    <div class="container pb-5">
+
+        <h3 class="mt-5 mb-4">Find a specialist to help you</h3>
+        <div class="card">
+            <div class="card-body">
+                <div>
+                    <div class="form-group">
+                        <label>Specialization</label>
+                        <input type="text" class="form-control" id="input_specialization"
+                               placeholder="Enter search query here" value="dev" v-model="fetchData.specialization">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Technologies</label>
+                        <ul class="ks-cboxtags">
+                            <li><input type="checkbox" id="checkboxOne" @click="addTag('PHP')"><label
+                                    class="label_technology" for="checkboxOne">PHP</label></li>
+                            <li><input type="checkbox" id="checkboxTwo" @click="addTag('JavaScript')"><label
+                                    class="label_technology" for="checkboxTwo">JavaScript</label></li>
+                            <li><input type="checkbox" id="checkboxThree" @click="addTag('C#')"><label
+                                     class="label_technology" for="checkboxThree">C#</label></li>
+                            <li><input type="checkbox" id="checkboxFour" @click="addTag('Node.js')"><label
+                                     class="label_technology" for="checkboxFour">Node.js</label></li>
+                            <li><input type="checkbox" id="checkboxFive" @click="addTag('Java')"><label
+                                     class="label_technology" for="checkboxFive">Java</label></li>
+                            <li><input type="checkbox" id="checkboxSix" @click="addTag('Golang')"><label
+                                     class="label_technology" for="checkboxSix">Golang</label></li>
+                            <li><input type="checkbox" id="checkboxSeven" @click="addTag('Front-end')"><label
+                                     class="label_technology" for="checkboxSeven">Front-end</label></li>
+                            <li><input type="checkbox" id="checkboxEight" @click="addTag('Back-end')"><label
+                                     class="label_technology" for="checkboxEight">Back-end</label></li>
+                            <li><input type="checkbox" id="checkboxNine" @click="addTag('HTML')"><label
+                                     class="label_technology" for="checkboxNine">HTML</label></li>
+                            <li><input type="checkbox" id="checkboxTen" @click="addTag('CSS')"><label for="checkboxTen" class="label_technology">CSS</label>
+                            </li>
+                            <li class="ks-selected"><input type="checkbox" id="checkboxEleven" @click="addTag('Discord')"><label
+                                     class="label_technology" for="checkboxEleven">Discord</label></li>
+                            <li><input type="checkbox" id="checkboxTwelve" @click="addTag('Excel')"><label
+                                     class="label_technology" for="checkboxTwelve">Excel</label></li>
+                            <li><input type="checkbox" id="checkboxThirteen" @click="addTag('Word')"><label
+                                     class="label_technology" for="checkboxThirteen">Word</label></li>
+                            <li><input type="checkbox" id="checkboxFourteen" @click="addTag('WordPress')"><label
+                                     class="label_technology" for="checkboxFourteen">WordPress</label></li>
+                            <li><input type="checkbox" id="checkboxFifteen" @click="addTag('Angular')"><label
+                                    class="label_technology" for="checkboxFifteen">Angular</label></li>
+                        </ul>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Available from</label>
+                                <input type="date" class="form-control" value="2021-03-02" v-model="fetchData.date1">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Available to</label>
+                                <input type="date" class="form-control" value="2021-03-03" v-model="fetchData.date2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-primary w-100" @click="search">Find specialists</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="results mt-5">
+            <h3 class="mb-4">Found specialists</h3>
+
+            <!-- one specialist -->
+            <div class="card mt-3" v-for="specialist in specialists">
+                <div class="row">
+                    <div class="col-2 pr-0">
+                        <img class="img-fluid" src="assets/images/default.png">
+                    </div>
+                    <div class="col-10 pl-0">
+                        <div class="card-body">
+                            <div>
+                                Fullname: <span class="specialist_fullname">{{specialist.fullname}}</span>
+                            </div>
+                            <div class="mt-2">
+                                Specialization: <span class="specialist_specialization" v-html="specialist.specialization"></span>
+                            </div>
+                            <div class="mt-2">
+                                Technologies: <span class="specialist_technologies" v-for="tag in specialist.tags"> <span v-html="tag"></span></span>
+                            </div>
+
+                            <div class="mt-2">
+                                Available from <span class="specialist_available_from">{{specialist.available_from}}</span> to <span
+                                    class="specialist_available_to">{{specialist.available_to}}</span>
+                            </div>
+
+                            <div class="mt-2">
+                                {{specialist.about}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- / one specialist -->
+
+        </div>
+
+    </div>
+</div>
+<script src="assets/js/vue.min.js"></script>
+<script src="assets/js/index.js" type="module"></script>
+</body>
+</html>
